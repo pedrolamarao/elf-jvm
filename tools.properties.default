@@ -1,0 +1,2 @@
+# LLVM search path (default: system PATH)
+br.dev.pedrolamarao.elf.llvm.path =

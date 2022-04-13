@@ -1,0 +1,21 @@
+final llvmPath = providers.provider { tools['br.dev.pedrolamarao.elf.llvm.path'] }
+
+project.model {
+    toolChains {
+        llvm(Clang) {
+            if (llvmPath.isPresent()) { it.path(llvmPath) }
+            target("hostx86_64-elf") {
+                assembler.executable = 'clang'
+                assembler.withArguments { addAll '-target', 'x86_64-elf' }
+                cCompiler.executable = 'clang'
+                cCompiler.withArguments { addAll '-target', 'x86_64-elf', '-ffreestanding', '-nostdinc' }
+                cppCompiler.executable = 'clang++'
+                cppCompiler.withArguments { addAll '-target', 'x86_64-elf', '-ffreestanding', '-nostdinc' }
+                linker.executable = 'clang++'
+                // #XXX: clang can't link target x86_64-elf with lld
+                linker.withArguments { addAll '-target', 'x86_64-linux-elf', '-fuse-ld=lld', '-nostdlib', '-static' }
+                staticLibArchiver.executable = 'llvm-ar'
+            }
+        }
+    }
+}
