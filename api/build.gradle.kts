@@ -21,6 +21,14 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
+}
+
 tasks.withType<Test> {
     inputs.files(sample)
     sample.resolvedConfiguration.files.forEach { systemProperties["br.dev.pedrolamarao.elf.sample.path"] = it }
