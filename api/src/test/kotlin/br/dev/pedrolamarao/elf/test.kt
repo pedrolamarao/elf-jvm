@@ -36,7 +36,7 @@ class ParserTest
             assertEquals(4,header.segmentTableSize())
             assertEquals(40,header.sectionEntrySize())
             assertEquals(6,header.sectionTableSize())
-            header.sectionNameIndex()
+            assertEquals(4,header.sectionNameIndex())
             val sectionTable = ElfSectionTableView32(
                 file.map(
                     READ_ONLY,
@@ -100,7 +100,7 @@ class ParserTest
             assertEquals(4,header.segmentTableSize())
             assertEquals(64,header.sectionEntrySize())
             assertEquals(6,header.sectionTableSize())
-            assertEquals(0,header.sectionNameIndex())
+            assertEquals(4,header.sectionNameIndex())
             val sectionTable = ElfSectionTableView64(
                 file.map(
                     READ_ONLY,
