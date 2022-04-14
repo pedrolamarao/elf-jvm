@@ -1,13 +1,9 @@
 plugins {
-    kotlin("jvm") version "1.6.20"
+    id("java")
     id("maven-publish")
 }
 
-kotlin {
-    jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 
 val sample : Configuration by configurations.creating {
     isCanBeConsumed = false
@@ -16,7 +12,6 @@ val sample : Configuration by configurations.creating {
 
 dependencies {
     sample(project(":sample"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }

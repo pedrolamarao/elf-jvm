@@ -16,7 +16,7 @@ fun find32 (file : FileChannel, byteOrder : ByteOrder, target : String) : Int
             READ_ONLY, header.sectionTableOffset().toLong(), (header.sectionEntrySize() * header.sectionTableSize()).toLong()
         )
         .order(byteOrder),
-        header.sectionEntrySize().toInt()
+        header.sectionEntrySize()
     )
 
     var stringTable : ElfStringTable? = null
@@ -58,7 +58,7 @@ fun find64 (file : FileChannel, byteOrder : ByteOrder, target : String) : Int
             READ_ONLY, header.sectionTableOffset(), (header.sectionEntrySize() * header.sectionTableSize()).toLong()
         )
         .order(byteOrder),
-        header.sectionEntrySize().toInt()
+        header.sectionEntrySize()
     )
 
     var stringTable : ElfStringTable? = null
@@ -103,7 +103,7 @@ fun main (args : Array<String>)
 
     FileChannel.open(file).use {
         val elf = ElfFileView(it.map(READ_ONLY,0,16))
-        if (elf.magic() != ByteBuffer.wrap(ElfConstants.MAGIC)) throw RuntimeException("not ELF")
+        if (elf.magic() != ByteBuffer.wrap(Elf.MAGIC)) throw RuntimeException("not ELF")
         val byteOrder = when (elf.encoding().toInt()) {
             1 -> ByteOrder.LITTLE_ENDIAN
             2 -> ByteOrder.BIG_ENDIAN
