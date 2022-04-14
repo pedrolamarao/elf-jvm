@@ -33,3 +33,4 @@ rootProject.name = "elf-jvm"
 
 include("api")
 include("sample")
+include("tool")
