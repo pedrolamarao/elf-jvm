@@ -16,7 +16,7 @@ public class ElfSymbolView64
 
     public int section () { return bytes.getShort(6); }
 
-    public int value () { return bytes.getInt(8); }
+    public long value () { return bytes.getLong(8); }
 
-    public int size () { return bytes.getInt(16); }
+    public long size () { return bytes.getLong(16); }
 }
